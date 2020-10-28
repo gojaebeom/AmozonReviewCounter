@@ -180,8 +180,8 @@ bestButton.onclick = async () =>
     }
 
     //베스트 상품리스트 실행 후 결과 받기
+    document.body.style.height = "120vh";
     let {products, category} = await getBestProductList(bestUrlInput.value);
-    
     let _searchReviews = 0;
     let _channelName;
     for (let i = 0; i < products.length; i++) 
