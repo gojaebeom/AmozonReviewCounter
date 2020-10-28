@@ -1,5 +1,5 @@
 ## 아마존 베스트 상품 크롤러 🚀
----
+![이미지](https://github.com/gojaebeom/AmozonReviewCounter/blob/main/thumbnail.png)
 💡 CORS 등 보안사항이 있어 직접 아마존 사이트에 들어가 DOM을 변조하여 크롤링하는 방법을 사용합니다.
 
 ### 사용 목적 
