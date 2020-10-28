@@ -18,7 +18,6 @@ document.body.innerHTML = `
         <tr>
             <th style="border: 1px solid #BDBDBD;padding:8px;">No</th>
             <th style="border: 1px solid #BDBDBD;padding:8px;">상품번호</th>
-            <th style="border: 1px solid #BDBDBD;padding:8px;">처리상태</th>
         </tr>
         <tbody id="productIdTbody" style="max-height:300px;overflow:hidden;"></tbody>
     </table>
@@ -152,7 +151,6 @@ button.onclick = ()=> {
             while(reviewIframWrap.hasChildNodes()){
                 reviewIframWrap.removeChild(reviewIframWrap.firstChild);
             }
-            console.log("iframe 삭제 완료");
         }
     );
 }
@@ -196,16 +194,16 @@ async function getBestProductList(URL){
 /* 베스트 상품 추출 버튼 클릭 이벤트 👆 */
 bestButton.onclick = async ()=> {
 
-    console.log('상품 탐색!');
-
-    //이전 상품번호리스트 초기화
-    productIdTbody.innerHTML = '';
-
     //URL과 DATE input의 값이 없으면 경고
     if(!bestUrlInput.value){
         alert("URL은 필수값입니다 😐");
         return false;
     }
+
+    //이전 상품번호리스트 초기화
+    productIdTbody.innerHTML = '';
+
+    
 
     //베스트 상품리스트 실행 후 결과 받기
     let data =  await getBestProductList(bestUrlInput.value);
@@ -215,20 +213,18 @@ bestButton.onclick = async ()=> {
     for(let i=0; i<data.length; i++){
         productIdTbody.innerHTML += `
         <tr style="font-size:18px;">
-            <td style="border: 1px solid #BDBDBD;text-align:center;padding:8px;">${i}</td>
+            <td style="border: 1px solid #BDBDBD;text-align:center;padding:8px;">${i+1}</td>
             <td  class="copy" style="border: 1px solid #BDBDBD;text-align:center;padding:8px; cursor:pointer;" 
-            onclick="urlMapping(this, ${i})"
+            onclick="urlMapping(this, ${i+1})"
             >
                 <a>${data[i].code}</a>
                 <span style="display:none;">${data[i].price}</span>
             </td>
-            <td style="border: 1px solid #BDBDBD;text-align:center;padding:8px;">
-                처리완료
-            </td>
         </tr>
         `
     }
-
+    
+    bestUrlInput.value = '';
     bestButton.textContent = `추출하기`;
 
     //만들었던 iframe들을 제거(초기화)해주어야 한다.
@@ -236,7 +232,6 @@ bestButton.onclick = async ()=> {
     while(bestIframeWrap.hasChildNodes()){
         bestIframeWrap.removeChild(bestIframeWrap.firstChild);
     }
-    console.log("iframe 삭제 완료");
 }
 
 /*ProductId -> 크롤링 url Input의 value에 할당 🚀*/
